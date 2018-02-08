@@ -1,1 +1,0 @@
-/home/duoduo/.config/nvim/init.vim
