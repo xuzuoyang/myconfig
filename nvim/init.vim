@@ -49,7 +49,7 @@ let g:neosolarized_italic = 0
 
 "airline config
 let g:airline_powerline_fonts = 0
-let g:airline_theme = 'badwolf'
+let g:airline_theme = 'solarized'
 let g:airline_solarized_bg='dark'
 "let g:airline#extensions#whitespace#enabled = 0 
 let g:airline#extensions#tabline#enabled = 1
