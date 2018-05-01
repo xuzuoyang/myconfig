@@ -1,20 +1,12 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/home/duoduo/.local/bin:$PATH
-
+export PATH=$HOME/bin:/usr/local/bin:/Users/xuzuoyang/Library/Python/4.6/bin:/Users/xuzuoyang/Library/Python/2.7/bin:/Users/xuzuoyang/Library/Python/3.6/bin:$PATH
 # Path to your oh-my-zsh installation.
-export ZSH=/home/duoduo/.oh-my-zsh
+export ZSH=/Users/xuzuoyang/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -59,8 +51,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git,
-  vi-mode
+git,
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -93,5 +84,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# alias python="/usr/bin/python3"
-setxkbmap -option ctrl:swapcaps
+source /Users/xuzuoyang/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+plugins=(zsh-syntax-highlighting)
+alias ctags="/usr/local/bin/ctags"
+alias lighton="~/Downloads/led-backlight-osx"
+alias lightoff="~/Downloads/led-backlight-osx turnoff"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# added by travis gem
+[ -f /Users/xuzuoyang/.travis/travis.sh ] && source /Users/xuzuoyang/.travis/travis.sh
