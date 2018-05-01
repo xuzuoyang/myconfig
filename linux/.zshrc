@@ -7,7 +7,7 @@ export ZSH=/home/$USER/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -60,7 +60,6 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git,
-  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -95,3 +94,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # alias python="/usr/bin/python3"
 setxkbmap -option ctrl:swapcaps
+setxkbmap -option altwin:swap_lalt_lwin 
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "`pip completion --zsh`"
