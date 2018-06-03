@@ -93,8 +93,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # alias python="/usr/bin/python3"
-setxkbmap -option ctrl:swapcaps
-setxkbmap -option altwin:swap_lalt_lwin 
+# setxkbmap -option ctrl:swapcaps
+# setxkbmap -option altwin:swap_lalt_lwin 
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
