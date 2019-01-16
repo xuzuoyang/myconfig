@@ -1,71 +1,48 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-" Better file browser
-Plugin 'scrooloose/nerdtree'
-" Class/module browser
-Plugin 'majutsushi/tagbar'
-" Code and files fuzzy finder
-Plugin 'ctrlpvim/ctrlp.vim'
-" YouCompleteMe
-Plugin 'Valloric/YouCompleteMe'
-" Asynchronous Lint Engine
-Plugin 'w0rp/ale'
-" Autoformat
-Plugin 'Chiel92/vim-autoformat' 
-Bundle 'edkolev/tmuxline.vim'
-" ack
-Plugin 'mileszs/ack.vim'
 " spacemacs theme
-Plugin 'liuchengxu/space-vim-dark'
-" git nerdtree
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-" gitgutter
-Plugin 'airblade/vim-gitgutter'
+Plug 'liuchengxu/space-vim-dark'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" tmuxline
+Plug 'edkolev/tmuxline.vim'
+
+" airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" nerdtree
+Plug 'scrooloose/nerdtree'
+
+" git
+Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'airblade/vim-gitgutter'
+
+" Class/module browser
+Plug 'majutsushi/tagbar'
+
+" fuzzy finder
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+" YouCompleteMe
+Plug 'Valloric/YouCompleteMe'
+" Asynchronous Lint Engine
+Plug 'w0rp/ale'
+" Autoformat
+Plug 'Chiel92/vim-autoformat' 
+" ack
+Plug 'mileszs/ack.vim'
+
+" Initialize plugin system
+call plug#end()
 
 " color scheme
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-
-syntax enable
+set termguicolors
 set background=dark
-let g:solarized_termcolors=256
 colorscheme solarized
-
-"colorscheme space-vim-dark 
-hi Comment cterm=italic
+colorscheme space-vim-dark 
 
 "airline config
 let g:airline_powerline_fonts = 0
-let g:airline_theme = 'badwolf'
+let g:airline_theme = 'solarized'
 let g:airline_solarized_bg='dark'
 "let g:airline#extensions#whitespace#enabled = 0 
 let g:airline#extensions#tabline#enabled = 1
@@ -74,46 +51,36 @@ let g:airline#extensions#ale#enabled = 1
 "let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 " show tab number in tab line
 let g:airline#extensions#tabline#tab_nr_type = 1
-set ttimeoutlen=10
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
 
+" tmuxline
+let g:tmuxline_theme = 'powerline'
+let g:tmuxline_preset = 'powerline'
+let g:airline#extensions#tmuxline#enabled = 1
+let g:tmuxline_powerline_separators = 0
+
+"vim内建设置
 "backspace
 set backspace=indent,eol,start
-
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <C-R> <C-W><C-R>
-
 " no vi-compatible
 set nocompatible
-
-" allow plugins by file type (required for plugins!)
-filetype plugin on
-filetype indent on
-
 " tabs and spaces handling
 "set expandtab
 "set tabstop=4
 "set softtabstop=4
 "set shiftwidth=4
-
 " always show status bar
 set ls=2
-
-" incremental search
 set incsearch
-" highlighted search results
 set hlsearch
-
-" syntax highlight on
 syntax on
-
-" show line numbers
 set nu
 
-" tab navigation mappings
+"键位映射
+imap <C-C> <esc>
+"tab navigation mappings
 map tn :tabn<CR>
 map tp :tabp<CR>
 map tm :tabm 
@@ -124,6 +91,12 @@ map <C-S-Right> :tabn<CR>
 imap <C-S-Right> <ESC>:tabn<CR>
 map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+"nnoremap <C-R> <C-W><C-R>
 
 "YouCompleteMe
 "YCM server使用的python解释器路径"
@@ -168,65 +141,61 @@ nmap ,t :NERDTreeFind<CR>
 " don;t show these file types
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
-" file finder mapping
-let g:ctrlp_map = ',e'
-" tags (symbols) in current file finder mapping
-nmap ,g :CtrlPBufTag<CR>
-" tags (symbols) in all files finder mapping
-"nmap ,G :CtrlPBufTagAll<CR>
-" general code finder in all files mapping
-nmap ,f :CtrlPLine<CR>
-" recent files finder mapping
-nmap ,m :CtrlPMRUFiles<CR>
-" commands finder mapping
-nmap ,c :CtrlPCmdPalette<CR>
-" to be able to call CtrlP with default search text
-function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-    execute ':CtrlP' . a:ctrlp_command_end
-    call feedkeys(a:search_text)
-endfunction
-" same as previous mappings, but calling with current word as default text
-nmap ,wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-nmap ,wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-nmap ,wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
-" don't change working directory
-let g:ctrlp_working_path_mode = 0
-" ignore these files and folders on file finder
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
-  \ 'file': '\.pyc$\|\.pyo$',
-  \ }
-
-" python-mode settings 
-let g:pymode_folding = 0 
-let g:pymode_indent = 1
-let g:pymode_doc = 1
-let g:pymode_doc_bind = 'K'
-let g:pymode_run = 1
-let g:pymode_run_bind = '<leader>r'
-let g:pymode_python = 'python3'
-let g:pymode_lint = 0 
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-
-
-" Autoformat
-noremap <F2> :Autoformat<CR>
-
 " ALE
 let g:ale_set_highlights = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {
-\   'python': ['pylint', 'flake8'],
-\}
+let g:ale_linters = {'python': ['pylint', 'flake8']}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" change key
-imap <C-C> <esc>
+" fzf
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" An action can be a reference to a function that processes selected lines
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" You can set up fzf window using a Vim command (Neovim or latest Vim 8 required)
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10split enew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'

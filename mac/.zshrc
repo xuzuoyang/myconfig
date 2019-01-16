@@ -93,3 +93,33 @@ alias lightoff="~/Downloads/led-backlight-osx turnoff"
 
 # added by travis gem
 [ -f /Users/xuzuoyang/.travis/travis.sh ] && source /Users/xuzuoyang/.travis/travis.sh
+
+# git log format
+alias gl="git log --graph --all --pretty=format:'%C(yellow)%h -%C(auto)%d %C(bold cyan)%s %C(bold white)(%cr)%Creset %C(dim white)<%an>'"
+alias gf="git fetch"
+alias gp="git pull"
+alias gpu="git pull upstream master"
+alias gr="git remote -v"
+alias gs="git status"
+alias gcm="git commit -m"
+alias ga="git add"
+alias gb="git branch -va"
+alias gbd="git branch -d"
+alias gc="git checkout"
+alias gcb="git checkout -b"
+alias gd="git diff"
+alias gm="git merge"
+
+# docker
+alias ds='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}"'
+
+# fzf
+# # fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .pyc'
+ff() {
+  local files
+  IFS=$'\n' files=($(fzf --height 40% --query="$1" --multi --preview 'cat {}'))
+  [[ -n "$files" ]] && ${EDITOR:-nvim} "${files[@]}"
+}
