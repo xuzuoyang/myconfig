@@ -152,9 +152,9 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Use deoplete.
-let g:deoplete#enable_at_startup = 0
+let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 0
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3.6'
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
 let g:deoplete#sources#jedi#show_docstring = 0
 set completeopt-=preview

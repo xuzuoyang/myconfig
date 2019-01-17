@@ -3,7 +3,6 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'VundleVim/Vundle.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Better file browser
@@ -33,13 +32,17 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'davidhalter/jedi-vim'
 " indent
 Plug 'vim-scripts/indentpython.vim'
+" surrounding
+Plug 'tpope/vim-surround'
+" json
+" Plug 'elzr/vim-json'
 " Initialize plugin system
 call plug#end()
 
 
 "color scheme
 set termguicolors
-colorscheme NeoSolarized
+"colorscheme NeoSolarized
 set background=dark
 let g:neosolarized_contrast = "normal"
 let g:neosolarized_visibility = "normal"
@@ -47,7 +50,7 @@ let g:neosolarized_vertSplitBgTrans = 1
 let g:neosolarized_bold = 1
 let g:neosolarized_underline = 1
 let g:neosolarized_italic = 0
-"colorscheme space-vim-dark 
+colorscheme space-vim-dark 
 
 "airline config
 let g:airline_powerline_fonts = 0
@@ -64,10 +67,10 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 if !exists('g:airline_symbols')
 let g:airline_symbols = {}
 endif
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = '☰'
+"let g:airline_symbols.maxlinenr = ''
 set ttimeoutlen=10
 
 " tmuxline
@@ -80,10 +83,10 @@ let g:tmuxline_powerline_separators = 0
 set backspace=indent,eol,start
 
 "split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
 "nnoremap <C-R> <C-W><C-R>
 
 " no vi-compatible
@@ -92,12 +95,6 @@ set nocompatible
 " allow plugins by file type (required for plugins!)
 filetype plugin on
 filetype indent on
-
-" tabs and spaces handling
-"set expandtab
-"set tabstop=4
-"set softtabstop=4
-"set shiftwidth=4
 
 " always show status bar
 set ls=2
@@ -162,9 +159,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
 \   'python': ['flake8', 'pylint'],
 \}
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-let g:ale_use_deprecated_neovim = 1
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " change key
 imap <C-c> <esc>
@@ -176,6 +172,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " remove trailing whitespaces for .py files
 autocmd BufWritePre *.py :%s/\s\+$//e
+autocmd BufWritePre *.yaml :%s/\s\+$//e
+autocmd BufWritePre *.json :%s/\s\+$//e
 
 " Jedi-vim
 let g:jedi#completions_enabled = 0
