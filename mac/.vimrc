@@ -22,14 +22,21 @@ Plug 'majutsushi/tagbar'
 " fuzzy finder
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-" YouCompleteMe
-Plug 'Valloric/YouCompleteMe'
+
+" jedi
+Plug 'davidhalter/jedi-vim'
+
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
-" Autoformat
-Plug 'Chiel92/vim-autoformat' 
-" ack
-Plug 'mileszs/ack.vim'
+
+" ag
+Plug 'rking/ag.vim'
+
+" parenthesis
+Plug 'jiangmiao/auto-pairs'
+
+" surrounding
+Plug 'tpope/vim-surround'
 
 " Initialize plugin system
 call plug#end()
@@ -37,7 +44,7 @@ call plug#end()
 " color scheme
 set termguicolors
 set background=dark
-colorscheme solarized
+"colorscheme solarized
 colorscheme space-vim-dark 
 
 "airline config
@@ -97,33 +104,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 "nnoremap <C-R> <C-W><C-R>
-
-"YouCompleteMe
-"YCM server使用的python解释器路径"
-"let g:ycm_path_to_python_interpreter='/usr/bin/python'
-"补全使用的python路径
-let g:ycm_python_binary_path = '/usr/local/bin/python3'
-"是否开启语义补全"
-let g:ycm_seed_identifiers_with_syntax=1
-"是否在注释中也开启补全"
-let g:ycm_complete_in_comments=1
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-"开始补全的字符数"
-let g:ycm_min_num_of_chars_for_completion=2
-"补全后自动关机预览窗口"
-let g:ycm_autoclose_preview_window_after_completion=1
-" 禁止缓存匹配项,每次都重新生成匹配项"
-let g:ycm_cache_omnifunc=0
-"字符串中也开启补全"
-let g:ycm_complete_in_strings = 1
-"键位设置
-let mapleader=","
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-"stupid config with gg
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"display preview window
-set completeopt-=preview
 
 " Tagbar ----------------------------- 
 
@@ -199,3 +179,18 @@ let g:fzf_colors =
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" Jedi-vim
+let mapleader = ","
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#force_py_version = 3
+autocmd FileType python setlocal completeopt-=preview
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
