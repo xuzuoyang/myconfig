@@ -28,10 +28,15 @@ Plug 'davidhalter/jedi-vim'
 
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
-" Autoformat
-Plug 'Chiel92/vim-autoformat' 
-" ack
-Plug 'mileszs/ack.vim'
+
+" ag
+Plug 'rking/ag.vim'
+
+" parenthesis
+Plug 'jiangmiao/auto-pairs'
+
+" surrounding
+Plug 'tpope/vim-surround'
 
 " Initialize plugin system
 call plug#end()
@@ -39,7 +44,7 @@ call plug#end()
 " color scheme
 set termguicolors
 set background=dark
-colorscheme solarized
+"colorscheme solarized
 colorscheme space-vim-dark 
 
 "airline config
@@ -186,3 +191,6 @@ let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#force_py_version = 3
 autocmd FileType python setlocal completeopt-=preview
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
