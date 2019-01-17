@@ -24,7 +24,11 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 " jedi
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'zchee/deoplete-jedi'
 
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
@@ -37,6 +41,9 @@ Plug 'jiangmiao/auto-pairs'
 
 " surrounding
 Plug 'tpope/vim-surround'
+
+" supertab
+"Plug 'ervandew/supertab'
 
 " Initialize plugin system
 call plug#end()
@@ -68,24 +75,36 @@ let g:tmuxline_preset = 'powerline'
 let g:airline#extensions#tmuxline#enabled = 1
 let g:tmuxline_powerline_separators = 0
 
-"vim内建设置
-"backspace
-set backspace=indent,eol,start
-" no vi-compatible
+" vim build-ins
 set nocompatible
+syntax on
+"set nobackup
+set nu nornu
+set showcmd
+set scrolloff=5
+set backspace=indent,eol,start
+"set showmatch
+"set matchtime=1
+" search handling
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 " tabs and spaces handling
-"set expandtab
-"set tabstop=4
-"set softtabstop=4
-"set shiftwidth=4
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
 " always show status bar
 set ls=2
-set incsearch
-set hlsearch
-syntax on
-set nu
+"  "if $TERM_PROGRAM =~ "iTerm"
+"  "    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"  "    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+"  "    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"  "endif
 
-"键位映射
+" key bindings
 imap <C-C> <esc>
 "tab navigation mappings
 map tn :tabn<CR>
@@ -104,6 +123,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 "nnoremap <C-R> <C-W><C-R>
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Tagbar ----------------------------- 
 
@@ -130,67 +151,10 @@ let g:ale_linters = {'python': ['pylint', 'flake8']}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" fzf
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-" An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-
-" You can set up fzf window using a Vim command (Neovim or latest Vim 8 required)
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10split enew' }
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-" Jedi-vim
-let mapleader = ","
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#force_py_version = 3
-autocmd FileType python setlocal completeopt-=preview
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use deoplete.
+let g:deoplete#enable_at_startup = 0
+let g:deoplete#auto_complete_delay = 0
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3.6'
+let g:deoplete#sources#jedi#show_docstring = 0
+set completeopt-=preview
