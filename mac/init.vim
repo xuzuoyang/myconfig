@@ -79,8 +79,58 @@ let g:tmuxline_preset = 'powerline'
 let g:airline#extensions#tmuxline#enabled = 1
 let g:tmuxline_powerline_separators = 0
 
+" vim built-ins --------------------------
+
+" no vi-compatible
+set nocompatible
+
+" syntax highlight on
+syntax on
+
+" show line numbers; no relative line numbers
+set nu nornu
+
+" incremental search
+set incsearch
+" highlighted search results
+set hlsearch
+
+" case search handling
+set ignorecase
+set smartcase
+
+" always show status bar
+set ls=2
+
 "backspace
 set backspace=indent,eol,start
+
+" tabs and spaces handling
+""set expandtab
+""set smarttab
+""set shiftwidth=4
+""set tabstop=4
+""set softtabstop=4
+
+" allow plugins by file type (required for plugins!)
+filetype plugin on
+filetype indent on
+
+" not using
+" scrolloff
+" set scrolloff=3
+" set showmatch
+" set matchtime=1
+
+" for gitgutter
+set updatetime=1000
+
+" vim built-ins --------------------------
+
+" key bindings ---------------------------
+
+" change key
+imap <C-c> <esc>
 
 "split navigations
 nnoremap <C-j> <C-W>j
@@ -88,27 +138,6 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 "nnoremap <C-R> <C-W><C-R>
-
-" no vi-compatible
-set nocompatible
-
-" allow plugins by file type (required for plugins!)
-filetype plugin on
-filetype indent on
-
-" always show status bar
-set ls=2
-
-" incremental search
-set incsearch
-" highlighted search results
-set hlsearch
-
-" syntax highlight on
-syntax on
-
-" show line numbers
-set nu
 
 " tab navigation mappings
 map tn :tabn<CR>
@@ -121,6 +150,8 @@ map <C-S-Right> :tabn<CR>
 imap <C-S-Right> <ESC>:tabn<CR>
 map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
+
+" key bindings ---------------------------
 
 " Tagbar ----------------------------- 
 
@@ -161,9 +192,6 @@ let g:ale_linters = {
 \}
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-" change key
-imap <C-c> <esc>
 
 " NCM
 let g:python3_host_prog = '/usr/local/bin/python3'
