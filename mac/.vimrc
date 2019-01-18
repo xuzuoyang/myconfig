@@ -46,8 +46,17 @@ Plug 'jiangmiao/auto-pairs'
 " surrounding
 Plug 'tpope/vim-surround'
 
+" indent
+Plug 'vim-scripts/indentpython.vim'
+
+" solarized
+"Plug 'iCyMind/NeoSolarized'
+
 " supertab
 "Plug 'ervandew/supertab'
+
+" NCM
+"Plug 'roxma/nvim-completion-manager'
 
 " Initialize plugin system
 call plug#end()
@@ -102,33 +111,8 @@ set tabstop=4
 set softtabstop=4
 " always show status bar
 set ls=2
-"  "if $TERM_PROGRAM =~ "iTerm"
-"  "    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"  "    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-"  "    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-"  "endif
 " for gitgutter
 set updatetime=1000
-
-" key bindings
-imap <C-C> <esc>
-"tab navigation mappings
-map tn :tabn<CR>
-map tp :tabp<CR>
-map tm :tabm 
-map tt :tabnew 
-map tc :tabclose
-map ts :tab split<CR>
-map <C-S-Right> :tabn<CR>
-imap <C-S-Right> <ESC>:tabn<CR>
-map <C-S-Left> :tabp<CR>
-imap <C-S-Left> <ESC>:tabp<CR>
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-"nnoremap <C-R> <C-W><C-R>
 
 " Tagbar ----------------------------- 
 
@@ -197,6 +181,93 @@ inoremap <c-c> <ESC>
 " line.
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
+"-----------------------------------------
+" vim built-ins --------------------------
+
+" no vi-compatible
+set nocompatible
+
+" syntax highlight on
+syntax on
+
+" show line numbers; no relative line numbers
+set nu nornu
+
+" incremental search
+set incsearch
+" highlighted search results
+set hlsearch
+
+" case search handling
+set ignorecase
+set smartcase
+
+" always show status bar
+set ls=2
+
+"backspace
+set backspace=indent,eol,start
+
+" tabs and spaces handling
+""set expandtab
+""set smarttab
+""set shiftwidth=4
+""set tabstop=4
+""set softtabstop=4
+
+" allow plugins by file type (required for plugins!)
+filetype plugin on
+filetype indent on
+
+" not using
+" scrolloff
+" set scrolloff=3
+" set showmatch
+" set matchtime=1
+
+" for gitgutter
+set updatetime=1000
+
+" remove trailing whitespaces for .py files
+autocmd BufWritePre *.py :%s/\s\+$//e
+autocmd BufWritePre *.yaml :%s/\s\+$//e
+autocmd BufWritePre *.json :%s/\s\+$//e
+
+" change cursor shape on iTerm
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" vim built-ins --------------------------
+
+" key bindings ---------------------------
+
+" change key
+imap <C-c> <esc>
+
+"split navigations
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
+"nnoremap <C-R> <C-W><C-R>
+
+" tab navigation mappings
+map tn :tabn<CR>
+map tp :tabp<CR>
+map tm :tabm
+map tt :tabnew
+map tc :tabclose
+map ts :tab split<CR>
+map <C-S-Right> :tabn<CR>
+imap <C-S-Right> <ESC>:tabn<CR>
+map <C-S-Left> :tabp<CR>
+imap <C-S-Left> <ESC>:tabp<CR>
+
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" key bindings ---------------------------

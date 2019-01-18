@@ -3,39 +3,64 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" Better file browser
-Plug 'scrooloose/nerdtree'
-" Class/module browser
-Plug 'majutsushi/tagbar'
-" Code and files fuzzy finder
-Plug 'ctrlpvim/ctrlp.vim'
-" NCM
-Plug 'roxma/nvim-completion-manager'
-" Asynchronous Lint Engine
-Plug 'w0rp/ale'
-Plug 'edkolev/tmuxline.vim'
 " spacemacs theme
 Plug 'liuchengxu/space-vim-dark'
+
+" tmuxline
+Plug 'edkolev/tmuxline.vim'
+
+" airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" nerdtree
+Plug 'scrooloose/nerdtree'
+
+" git
+Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'airblade/vim-gitgutter'
+
+" Class/module browser
+Plug 'majutsushi/tagbar'
+
+" fuzzy finder
+Plug 'ctrlpvim/ctrlp.vim'
+
+" jedi
+Plug 'davidhalter/jedi-vim'
+
+" ncm2
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+
+" Asynchronous Lint Engine
+Plug 'w0rp/ale'
+
 " ag
 Plug 'rking/ag.vim'
-" git nerdtree
-Plug 'Xuyuanp/nerdtree-git-plugin'
-" gitgutter
-Plug 'airblade/vim-gitgutter'
-" solarized
-Plug 'iCyMind/NeoSolarized'
+
 " parenthesis
 Plug 'jiangmiao/auto-pairs'
-" goto
-Plug 'davidhalter/jedi-vim'
-" indent
-Plug 'vim-scripts/indentpython.vim'
+
 " surrounding
 Plug 'tpope/vim-surround'
-" json
-" Plug 'elzr/vim-json'
+
+" indent
+Plug 'vim-scripts/indentpython.vim'
+
+" solarized
+"Plug 'iCyMind/NeoSolarized'
+
+" supertab
+"Plug 'ervandew/supertab'
+
+" NCM
+"Plug 'roxma/nvim-completion-manager'
+
 " Initialize plugin system
 call plug#end()
 
@@ -79,6 +104,76 @@ let g:tmuxline_preset = 'powerline'
 let g:airline#extensions#tmuxline#enabled = 1
 let g:tmuxline_powerline_separators = 0
 
+" Tagbar ----------------------------- 
+
+" toggle tagbar display
+map <F4> :TagbarToggle<CR>
+" autofocus on tagbar open
+let g:tagbar_autofocus = 1
+
+" NERDTree ----------------------------- 
+
+" toggle nerdtree display
+map <F3> :NERDTreeToggle<CR>
+" open nerdtree with the current file selected
+nmap ,t :NERDTreeFind<CR>
+" don;t show these file types
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+
+" ctrlp
+" file finder mapping
+let g:ctrlp_map = ',e'
+" tags (symbols) in current file finder mapping
+nmap ,g :CtrlPBufTag<CR>
+" don't change working directory
+let g:ctrlp_working_path_mode = 0
+" ignore these files and folders on file finder
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
+  \ 'file': '\.pyc$\|\.pyo$',
+  \ }
+
+" ALE
+let g:ale_set_highlights = 0
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {
+\   'python': ['flake8', 'pylint'],
+\}
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" Jedi-vim
+let g:jedi#completions_enabled = 0
+
+let mapleader = ","
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#force_py_version = 3
+
+" NCM2
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+"-----------------------------------------
 " vim built-ins --------------------------
 
 " no vi-compatible
@@ -125,6 +220,11 @@ filetype indent on
 " for gitgutter
 set updatetime=1000
 
+" remove trailing whitespaces for .py files
+autocmd BufWritePre *.py :%s/\s\+$//e
+autocmd BufWritePre *.yaml :%s/\s\+$//e
+autocmd BufWritePre *.json :%s/\s\+$//e
+
 " vim built-ins --------------------------
 
 " key bindings ---------------------------
@@ -151,67 +251,8 @@ imap <C-S-Right> <ESC>:tabn<CR>
 map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
 
-" key bindings ---------------------------
-
-" Tagbar ----------------------------- 
-
-" toggle tagbar display
-map <F4> :TagbarToggle<CR>
-" autofocus on tagbar open
-let g:tagbar_autofocus = 1
-
-" NERDTree ----------------------------- 
-
-" toggle nerdtree display
-map <F3> :NERDTreeToggle<CR>
-" open nerdtree with the current file selected
-nmap ,t :NERDTreeFind<CR>
-" don;t show these file types
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
-
-" ctrlp
-" file finder mapping
-let g:ctrlp_map = ',e'
-" tags (symbols) in current file finder mapping
-nmap ,g :CtrlPBufTag<CR>
-" don't change working directory
-let g:ctrlp_working_path_mode = 0
-" ignore these files and folders on file finder
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
-  \ 'file': '\.pyc$\|\.pyo$',
-  \ }
-
-" ALE
-let g:ale_set_highlights = 0
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {
-\   'python': ['flake8', 'pylint'],
-\}
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-" NCM
-let g:python3_host_prog = '/usr/local/bin/python3'
+" Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" remove trailing whitespaces for .py files
-autocmd BufWritePre *.py :%s/\s\+$//e
-autocmd BufWritePre *.yaml :%s/\s\+$//e
-autocmd BufWritePre *.json :%s/\s\+$//e
-
-" Jedi-vim
-let g:jedi#completions_enabled = 0
-
-let mapleader = ","
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#force_py_version = 3
+" key bindings ---------------------------
