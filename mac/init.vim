@@ -51,6 +51,7 @@ Plug 'tpope/vim-surround'
 
 " indent
 Plug 'vim-scripts/indentpython.vim'
+"Plug 'Vimjas/vim-python-pep8-indent'
 
 " solarized
 "Plug 'iCyMind/NeoSolarized'
@@ -60,6 +61,12 @@ Plug 'vim-scripts/indentpython.vim'
 
 " NCM
 "Plug 'roxma/nvim-completion-manager'
+
+" auto format
+Plug 'Chiel92/vim-autoformat'
+
+" commenter
+Plug 'scrooloose/nerdcommenter'
 
 " Initialize plugin system
 call plug#end()
@@ -173,6 +180,15 @@ inoremap <c-c> <ESC>
 " line.
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
+let g:python_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" autoformat
+let g:formatter_yapf_style = 'pep8'
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" let g:autoformat_remove_trailing_spaces = 0
+
 "-----------------------------------------
 " vim built-ins --------------------------
 
@@ -225,6 +241,9 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 autocmd BufWritePre *.yaml :%s/\s\+$//e
 autocmd BufWritePre *.json :%s/\s\+$//e
 
+" folding
+" set foldmethod=indent
+
 " vim built-ins --------------------------
 
 " key bindings ---------------------------
@@ -254,5 +273,9 @@ imap <C-S-Left> <ESC>:tabp<CR>
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" folding 
+" (use zM&zR to do full fold/unfold; use zm&zr to do it level by level)
+nnoremap za <space>
 
 " key bindings ---------------------------
