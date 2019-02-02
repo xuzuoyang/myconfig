@@ -59,7 +59,9 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git,
+  git
+  zsh-autosuggestions
+  aws django docker fabric encode64 copyfile python redis-cli z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -102,3 +104,19 @@ export EDITOR="$VISUAL"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "`pip completion --zsh`"
+
+# git log format
+alias gl="git log --graph --all --pretty=format:'%C(yellow)%h -%C(auto)%d %C(bold cyan)%s %C(bold white)(%cr)%Creset %C(dim white)<%an>'"
+alias gf="git fetch"
+alias gp="git pull"
+alias gpu="git pull upstream master"
+alias gr="git remote -v"
+alias gs="git status"
+alias gcm="git commit -m"
+alias ga="git add"
+alias gb="git branch -va"
+alias gbd="git branch -d"
+alias gc="git checkout"
+alias gcb="git checkout -b"
+alias gd="git diff"
+alias gm="git merge"
