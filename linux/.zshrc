@@ -120,3 +120,6 @@ alias gc="git checkout"
 alias gcb="git checkout -b"
 alias gd="git diff"
 alias gm="git merge"
+
+# zsh auto suggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'

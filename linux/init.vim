@@ -41,7 +41,7 @@ call plug#end()
 
 
 "color scheme
-set termguicolors
+"set termguicolors
 "colorscheme NeoSolarized
 set background=dark
 let g:neosolarized_contrast = "normal"
