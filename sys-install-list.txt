@@ -1,0 +1,9 @@
+htop
+iftop
+iotop
+neovim
+tmux
+docker
+ansible
+hub
+cloc
