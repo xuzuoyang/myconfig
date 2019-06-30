@@ -3,74 +3,82 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" Better file browser
-Plug 'scrooloose/nerdtree'
-" Class/module browser
-Plug 'majutsushi/tagbar'
-" Code and files fuzzy finder
-Plug 'ctrlpvim/ctrlp.vim'
-" NCM
-Plug 'roxma/nvim-completion-manager'
-" Asynchronous Lint Engine
-Plug 'w0rp/ale'
-Plug 'edkolev/tmuxline.vim'
 " spacemacs theme
 Plug 'liuchengxu/space-vim-dark'
+
+" tmuxline
+Plug 'edkolev/tmuxline.vim'
+
+" airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" nerdtree
+Plug 'scrooloose/nerdtree'
+
+" git
+Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'airblade/vim-gitgutter'
+
+" fuzzy finder
+Plug 'ctrlpvim/ctrlp.vim'
+
+" jedi
+Plug 'davidhalter/jedi-vim'
+
+" ncm2
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+
+" Asynchronous Lint Engine
+Plug 'w0rp/ale'
+
 " ag
 Plug 'rking/ag.vim'
-" git nerdtree
-Plug 'Xuyuanp/nerdtree-git-plugin'
-" gitgutter
-Plug 'airblade/vim-gitgutter'
-" solarized
-Plug 'iCyMind/NeoSolarized'
+
 " parenthesis
 Plug 'jiangmiao/auto-pairs'
-" goto
-Plug 'davidhalter/jedi-vim'
-" indent
-Plug 'vim-scripts/indentpython.vim'
+
 " surrounding
 Plug 'tpope/vim-surround'
-" json
-" Plug 'elzr/vim-json'
+
+" indent
+Plug 'vim-scripts/indentpython.vim'
+"Plug 'Vimjas/vim-python-pep8-indent'
+
+" auto format
+Plug 'Chiel92/vim-autoformat'
+
+" commenter
+Plug 'scrooloose/nerdcommenter'
+
+" snippet
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
+
 " Initialize plugin system
 call plug#end()
 
 
 "color scheme
-"set termguicolors
-"colorscheme NeoSolarized
-set background=dark
-let g:neosolarized_contrast = "normal"
-let g:neosolarized_visibility = "normal"
-let g:neosolarized_vertSplitBgTrans = 1
-let g:neosolarized_bold = 1
-let g:neosolarized_underline = 1
-let g:neosolarized_italic = 0
+set termguicolors
 colorscheme space-vim-dark 
 
 "airline config
 let g:airline_powerline_fonts = 0
-let g:airline_theme = 'solarized'
-let g:airline_solarized_bg='dark'
-"let g:airline#extensions#whitespace#enabled = 0 
+let g:airline_theme = 'violet'
+let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled = 1
-" show absolute file path in status line
-"let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 " show tab number in tab line
 let g:airline#extensions#tabline#tab_nr_type = 1
 
 if !exists('g:airline_symbols')
 let g:airline_symbols = {}
 endif
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = '☰'
-"let g:airline_symbols.maxlinenr = ''
 set ttimeoutlen=10
 
 " tmuxline
@@ -78,49 +86,6 @@ let g:tmuxline_theme = 'powerline'
 let g:tmuxline_preset = 'powerline'
 let g:airline#extensions#tmuxline#enabled = 1
 let g:tmuxline_powerline_separators = 0
-
-"backspace
-set backspace=indent,eol,start
-
-"split navigations
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-l> <C-W>l
-nnoremap <C-h> <C-W>h
-"nnoremap <C-R> <C-W><C-R>
-
-" no vi-compatible
-set nocompatible
-
-" allow plugins by file type (required for plugins!)
-filetype plugin on
-filetype indent on
-
-" always show status bar
-set ls=2
-
-" incremental search
-set incsearch
-" highlighted search results
-set hlsearch
-
-" syntax highlight on
-syntax on
-
-" show line numbers
-set nu
-
-" tab navigation mappings
-map tn :tabn<CR>
-map tp :tabp<CR>
-map tm :tabm
-map tt :tabnew
-map tc :tabclose
-map ts :tab split<CR>
-map <C-S-Right> :tabn<CR>
-imap <C-S-Right> <ESC>:tabn<CR>
-map <C-S-Left> :tabp<CR>
-imap <C-S-Left> <ESC>:tabp<CR>
 
 " Tagbar ----------------------------- 
 
@@ -157,23 +122,10 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
-\   'python': ['flake8', 'pylint'],
+\   'python3': ['flake8', 'pylint'],
 \}
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-" change key
-imap <C-c> <esc>
-
-" NCM
-let g:python3_host_prog = '/usr/bin/python3'
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" remove trailing whitespaces for .py files
-autocmd BufWritePre *.py :%s/\s\+$//e
-autocmd BufWritePre *.yaml :%s/\s\+$//e
-autocmd BufWritePre *.json :%s/\s\+$//e
 
 " Jedi-vim
 let g:jedi#completions_enabled = 0
@@ -187,3 +139,124 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#force_py_version = 3
+
+" NCM2
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+let g:python_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" autoformat
+let g:formatter_yapf_style = 'black'
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" let g:autoformat_remove_trailing_spaces = 0
+
+"-----------------------------------------
+" vim built-ins --------------------------
+
+" no vi-compatible
+set nocompatible
+
+" syntax highlight on
+syntax on
+
+" show line numbers; no relative line numbers
+set nu nornu
+
+" incremental search
+set incsearch
+" highlighted search results
+set hlsearch
+
+" case search handling
+set ignorecase
+set smartcase
+
+" always show status bar
+set ls=2
+
+"backspace
+set backspace=indent,eol,start
+
+" tabs and spaces handling
+""set expandtab
+""set smarttab
+""set shiftwidth=4
+""set tabstop=4
+""set softtabstop=4
+
+" allow plugins by file type (required for plugins!)
+filetype plugin on
+filetype indent on
+
+" not using
+" scrolloff
+" set scrolloff=3
+" set showmatch
+" set matchtime=1
+
+" for gitgutter
+set updatetime=1000
+
+" remove trailing whitespaces for .py files
+autocmd BufWritePre *.py :%s/\s\+$//e
+autocmd BufWritePre *.yaml :%s/\s\+$//e
+autocmd BufWritePre *.json :%s/\s\+$//e
+
+" folding
+" set foldmethod=indent
+
+" vim built-ins --------------------------
+
+" key bindings ---------------------------
+
+" change key
+imap <C-c> <esc>
+
+"split navigations
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
+"nnoremap <C-R> <C-W><C-R>
+
+" tab navigation mappings
+map tn :tabn<CR>
+map tp :tabp<CR>
+map tm :tabm
+map tt :tabnew
+map tc :tabclose
+map ts :tab split<CR>
+map <C-S-Right> :tabn<CR>
+imap <C-S-Right> <ESC>:tabn<CR>
+map <C-S-Left> :tabp<CR>
+imap <C-S-Left> <ESC>:tabp<CR>
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" folding 
+" (use zM&zR to do full fold/unfold; use zm&zr to do it level by level)
+nnoremap za <space>
+
+" key bindings ---------------------------
+
+" snippet
+"let g:UltiSnipsExpandTrigger="<c-i>"
+"let g:UltiSnipsJumpForwardTrigger="<c-n>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-p>"
