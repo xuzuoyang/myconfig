@@ -59,9 +59,8 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  zsh-autosuggestions
-  aws django docker fabric encode64 copyfile python redis-cli z
+  z
+  encode64
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -121,5 +120,27 @@ alias gcb="git checkout -b"
 alias gd="git diff"
 alias gm="git merge"
 
+# fzf
+# # fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .pyc'
+ff() {
+  local files
+  IFS=$'\n' files=($(fzf --height 40% --query="$1" --multi --preview 'cat {}'))
+  [[ -n "$files" ]] && ${EDITOR:-nvim} "${files[@]}"
+}
+
 # zsh auto suggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
+function sson() {
+	export http_proxy=http://localhost:9012
+	export https_proxy=http://localhost:9012
+	export ftp_proxy=http://localhost:9012
+}
+function ssoff() {
+	unset http_proxy https_proxy ftp_proxy
+}
