@@ -19,9 +19,6 @@ Plug 'scrooloose/nerdtree'
 " git
 Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'airblade/vim-gitgutter'
 
-" Class/module browser
-Plug 'majutsushi/tagbar'
-
 " fuzzy finder
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -31,7 +28,6 @@ Plug 'davidhalter/jedi-vim'
 " ncm2
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
@@ -53,20 +49,15 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/indentpython.vim'
 "Plug 'Vimjas/vim-python-pep8-indent'
 
-" solarized
-"Plug 'iCyMind/NeoSolarized'
-
-" supertab
-"Plug 'ervandew/supertab'
-
-" NCM
-"Plug 'roxma/nvim-completion-manager'
-
 " auto format
 Plug 'Chiel92/vim-autoformat'
 
 " commenter
 Plug 'scrooloose/nerdcommenter'
+
+" snippet
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
 
 " Initialize plugin system
 call plug#end()
@@ -74,35 +65,20 @@ call plug#end()
 
 "color scheme
 set termguicolors
-"colorscheme NeoSolarized
-set background=dark
-let g:neosolarized_contrast = "normal"
-let g:neosolarized_visibility = "normal"
-let g:neosolarized_vertSplitBgTrans = 1
-let g:neosolarized_bold = 1
-let g:neosolarized_underline = 1
-let g:neosolarized_italic = 0
 colorscheme space-vim-dark 
 
 "airline config
 let g:airline_powerline_fonts = 0
-let g:airline_theme = 'solarized'
-let g:airline_solarized_bg='dark'
-"let g:airline#extensions#whitespace#enabled = 0 
+let g:airline_theme = 'violet'
+let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled = 1
-" show absolute file path in status line
-"let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 " show tab number in tab line
 let g:airline#extensions#tabline#tab_nr_type = 1
 
 if !exists('g:airline_symbols')
 let g:airline_symbols = {}
 endif
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = '☰'
-"let g:airline_symbols.maxlinenr = ''
 set ttimeoutlen=10
 
 " tmuxline
@@ -146,7 +122,7 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
-\   'python': ['flake8', 'pylint'],
+\   'python3': ['flake8', 'pylint'],
 \}
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -184,7 +160,7 @@ let g:python_host_prog = '/usr/local/bin/python3'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
 " autoformat
-let g:formatter_yapf_style = 'pep8'
+let g:formatter_yapf_style = 'black'
 " let g:autoformat_autoindent = 0
 " let g:autoformat_retab = 0
 " let g:autoformat_remove_trailing_spaces = 0
@@ -279,3 +255,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 nnoremap za <space>
 
 " key bindings ---------------------------
+
+" snippet
+"let g:UltiSnipsExpandTrigger="<c-i>"
+"let g:UltiSnipsJumpForwardTrigger="<c-n>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-p>"

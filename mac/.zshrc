@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/Users/xuzuoyang/Library/Python/4.6/bin:/Users/xuzuoyang/Library/Python/2.7/bin:/Users/xuzuoyang/Library/Python/3.6/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/Users/xuzuoyang/Library/Python/3.7/bin:/Users/xuzuoyang/Library/Python/2.7/bin:/Applications/CMake.app/Contents/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/xuzuoyang/.oh-my-zsh
 
@@ -53,7 +53,8 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git 
   zsh-autosuggestions
-  aws django docker fabric encode64 copyfile python redis-cli z
+  z
+  encode64
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -125,3 +126,6 @@ ff() {
   IFS=$'\n' files=($(fzf --height 40% --query="$1" --multi --preview 'cat {}'))
   [[ -n "$files" ]] && ${EDITOR:-nvim} "${files[@]}"
 }
+
+# zsh auto suggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
