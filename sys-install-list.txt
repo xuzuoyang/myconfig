@@ -3,7 +3,11 @@ iftop
 iotop
 neovim
 tmux
+pyenv
 docker
 ansible
 hub
+tig
 cloc
+tldr
+speedtest-cli
