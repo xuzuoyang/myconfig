@@ -61,6 +61,7 @@ ZSH_THEME="robbyrussell"
 plugins=(
   z
   encode64
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -125,7 +126,7 @@ alias gm="git merge"
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .pyc'
-ff() {
+f() {
   local files
   IFS=$'\n' files=($(fzf --height 40% --query="$1" --multi --preview 'cat {}'))
   [[ -n "$files" ]] && ${EDITOR:-nvim} "${files[@]}"
@@ -144,3 +145,7 @@ function sson() {
 function ssoff() {
 	unset http_proxy https_proxy ftp_proxy
 }
+
+alias ipinfo="curl ipinfo.io"
+alias ipa="curl ip.sb"
+alias speed="speedtest-cli --simple"
