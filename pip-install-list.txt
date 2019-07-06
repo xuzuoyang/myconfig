@@ -15,3 +15,4 @@ pipenv
 httpie
 ipython
 jupyter
+django
