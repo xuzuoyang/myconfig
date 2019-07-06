@@ -98,7 +98,7 @@ source $ZSH/oh-my-zsh.sh
 # setxkbmap -option ctrl:swapcaps
 # setxkbmap -option altwin:swap_lalt_lwin 
 
-export VISUAL=vim
+export VISUAL="nvim"
 export EDITOR="$VISUAL"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
