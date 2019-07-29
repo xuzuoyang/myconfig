@@ -16,3 +16,4 @@ httpie
 ipython
 jupyter
 django
+mycli

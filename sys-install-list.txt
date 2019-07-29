@@ -12,3 +12,5 @@ tig
 cloc
 tldr
 speedtest-cli
+jq
+the_silver_searcher
