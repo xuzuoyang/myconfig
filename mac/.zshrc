@@ -1,12 +1,19 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/Users/xuzuoyang/Library/Python/3.7/bin:/Users/xuzuoyang/Library/Python/2.7/bin:/Applications/CMake.app/Contents/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/Users/xuzuoyang/Library/Python/3.8/bin:/Users/xuzuoyang/Library/Python/2.7/bin:/Applications/CMake.app/Contents/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/xuzuoyang/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,7 +58,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git 
+  git
   zsh-autosuggestions
   z
   encode64
@@ -89,29 +96,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source /Users/xuzuoyang/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 plugins=(zsh-syntax-highlighting)
-alias ctags="/usr/local/bin/ctags"
-alias lighton="~/Downloads/led-backlight-osx"
-alias lightoff="~/Downloads/led-backlight-osx turnoff"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # added by travis gem
 [ -f /Users/xuzuoyang/.travis/travis.sh ] && source /Users/xuzuoyang/.travis/travis.sh
-
-# git log format
-alias gl="git log --graph --all --pretty=format:'%C(yellow)%h -%C(auto)%d %C(bold cyan)%s %C(bold white)(%cr)%Creset %C(dim white)<%an>'"
-alias gf="git fetch"
-alias gp="git pull"
-alias gpu="git pull upstream master"
-alias gr="git remote -v"
-alias gs="git status"
-alias gcm="git commit -m"
-alias ga="git add"
-alias gb="git branch -va"
-alias gbd="git branch -d"
-alias gc="git checkout"
-alias gcb="git checkout -b"
-alias gd="git diff"
-alias gm="git merge"
 
 # docker
 alias ds='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}"'
@@ -121,7 +109,7 @@ alias ds='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}"'
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .pyc'
-ff() {
+f() {
   local files
   IFS=$'\n' files=($(fzf --height 40% --query="$1" --multi --preview 'cat {}'))
   [[ -n "$files" ]] && ${EDITOR:-nvim} "${files[@]}"
@@ -129,3 +117,18 @@ ff() {
 
 # zsh auto suggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+
+# ss
+alias sson="export http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890"
+alias ssoff="unset http_proxy https_proxy"
+
+# options
+setopt histignorealldups
+
+export LANG=zh_CN.UTF-8
+
+# pew
+source $(pew shell_config)
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
